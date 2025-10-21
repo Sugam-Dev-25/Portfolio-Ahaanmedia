@@ -1,39 +1,37 @@
-// src/Animations/BannerAnimation.tsx
-import { useEffect, useState } from 'react';
-import gsap from 'gsap';
-import ScrollTrigger from 'gsap/ScrollTrigger';
+// /Animations/BannerAnimation.ts
+import gsap from "gsap";
 
-gsap.registerPlugin(ScrollTrigger);
+export const animateBanner = () => {
+  const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-export default function useBannerAnimation() {
-  const [color, setColor] = useState('#FFD700');
-  const [scene, setScene] = useState(0); // 0: Globe, 1: Universe, 2: Weather
+  // Animate PORT
+  tl.fromTo(
+    ".heading-port",
+    { opacity: 0, y: -100 },
+    { opacity: 1, y: 0, duration: 1 }
+  )
 
-  useEffect(() => {
-    const trigger = ScrollTrigger.create({
-      trigger: '#portfolio-section',
-      start: 'top top',
-      end: '+=3000',
-      scrub: true,
-      onUpdate: (self) => {
-        const progress = self.progress;
+  // Animate FOLIO
+  .fromTo(
+    ".heading-folio",
+    { opacity: 0, y: 100 },
+    { opacity: 1, y: 0, duration: 1 },
+    "-=0.5"
+  )
 
-        // Update color
-        const colors = ['#FFD700', '#00FFFF', '#FF69B4'];
-        const index = Math.floor(progress * colors.length);
-        setColor(colors[index]);
+  // Animate UI UX DESIGN
+  .fromTo(
+    ".heading-ui",
+    { opacity: 0, x: 100, scale: 0.8 },
+    { opacity: 1, x: 0, scale: 1, duration: 1 },
+    "-=0.3"
+  )
 
-        // Update scene
-        if (progress < 0.33) setScene(0);
-        else if (progress < 0.66) setScene(1);
-        else setScene(2);
-      },
-    });
-
-    return () => {
-      trigger.kill();
-    };
-  }, []);
-
-  return { color, scene };
-}
+  // Animate WORKS
+  .fromTo(
+    ".heading-works",
+    { opacity: 0, x: -100, scale: 0.8 },
+    { opacity: 1, x: 0, scale: 1, duration: 1 },
+    "-=0.4"
+  );
+};
