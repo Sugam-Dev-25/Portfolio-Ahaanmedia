@@ -1,7 +1,7 @@
 
 import './App.css'
 import Banner from './Components/Banner'
-import UiDesign from './Components/Uidesign'
+import {UiDesign} from './Components/Uidesign'
 
 
 function App() {
